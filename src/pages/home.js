@@ -1,4 +1,4 @@
-import { route } from "../srcipt";
+import { app_div, route } from "../srcipt";
 
 export const home = () => {
     let div = document.createElement('div');

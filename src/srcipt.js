@@ -1,3 +1,6 @@
+import { about } from "./pages/about";
+import { home } from "./pages/home";
+
 let routes = {
 
 }
@@ -5,6 +8,8 @@ let routes = {
 let templates = {
 
 }
+
+export const app_div = document.getElementById('app');
 
 export function template (name, templateFunction) {
     return templates[name] = templateFunction;
@@ -28,3 +33,23 @@ export function resolveRoute(route) {
         throw new Error(`Route ${route} not found`);
     };
 };
+
+export function router(evt) {
+    let url = window.location.hash.slice(1) || '/';
+    let route = resolveRoute(url);
+
+    route();
+};
+
+template('home', () => {
+    home();
+});
+
+template('about', function () {
+    about();
+});
+
+window.addEventListener('load', router);
+window.addEventListener('hashchange', router);
+
+
