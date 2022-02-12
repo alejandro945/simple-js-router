@@ -13,28 +13,30 @@ function home() {
     let link = document.createElement('a');
     link.href = '#/about';
     link.innerText = 'About';
-
+    link.onclick = function () {  
+        location.href="#/about"
+        location.reload();
+    }
     div.innerHTML = '<h1>Home</h1>';
     div.appendChild(link);
-
-    app_div.appendChild(div);
+    app_div.appendChild(div);  
 };
 
-function about(){
+function about() {
     let div = document.createElement('div');
     let link = document.createElement('a');
     link.href = '#/';
     link.innerText = 'Home';
-
+    link.onclick = function () {  
+        location.href="#/"
+        location.reload();
+    }
     div.innerHTML = '<h1>About</h1>';
     div.appendChild(link);
-
-    app_div.appendChild(div);
+    app_div.appendChild(div);   
 }
 
-
-
-function route (path, template)  {
+function route(path, template) {
     if (typeof template === 'function') {
         return routes[path] = template;
     }
@@ -48,11 +50,12 @@ function route (path, template)  {
 function template(name, templateFunction) {
     return templates[name] = templateFunction;
 }
+
 template('about', function () {
     about();
 });
 
-template('home', function(){
+template('home', function () {
     home();
 });
 
@@ -69,13 +72,9 @@ function resolveRoute(route) {
 
 function router(evt) {
     let url = window.location.hash.slice(1) || '/';
-    console.log(url);
     let r = resolveRoute(url);
-console.log(r);
-r()
+    r()
 };
 
 window.addEventListener('load', router);
 window.addEventListener('hashchange', router);
-
-
