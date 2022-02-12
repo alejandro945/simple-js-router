@@ -1,3 +1,5 @@
+import { route } from "../srcipt";
+
 export const about = () => {
     let div = document.createElement('div');
     let link = document.createElement('a');
@@ -9,3 +11,5 @@ export const about = () => {
 
     app_div.appendChild(div);
 }
+
+route('/', 'about');
