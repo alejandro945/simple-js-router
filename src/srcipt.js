@@ -1,6 +1,3 @@
-import { about } from "./pages/about";
-import { home } from "./pages/home";
-
 let routes = {
 
 }
@@ -9,13 +6,35 @@ let templates = {
 
 }
 
-export const app_div = document.getElementById('app');
+let app_div = document.getElementById('app');
 
-export function template (name, templateFunction) {
-    return templates[name] = templateFunction;
+function home() {
+    let div = document.createElement('div');
+    let link = document.createElement('a');
+    link.href = '#/about';
+    link.innerText = 'About';
+
+    div.innerHTML = '<h1>Home</h1>';
+    div.appendChild(link);
+
+    app_div.appendChild(div);
+};
+
+function about(){
+    let div = document.createElement('div');
+    let link = document.createElement('a');
+    link.href = '#/';
+    link.innerText = 'Home';
+
+    div.innerHTML = '<h1>About</h1>';
+    div.appendChild(link);
+
+    app_div.appendChild(div);
 }
 
-export const route = (path, template)=>{
+
+
+function route (path, template)  {
     if (typeof template === 'function') {
         return routes[path] = template;
     }
@@ -26,7 +45,21 @@ export const route = (path, template)=>{
     };
 }
 
-export function resolveRoute(route) {
+function template(name, templateFunction) {
+    return templates[name] = templateFunction;
+}
+template('about', function () {
+    about();
+});
+
+template('home', function(){
+    home();
+});
+
+route('/about', 'about');
+route('/', 'home');
+
+function resolveRoute(route) {
     try {
         return routes[route];
     } catch (e) {
@@ -34,20 +67,13 @@ export function resolveRoute(route) {
     };
 };
 
-export function router(evt) {
+function router(evt) {
     let url = window.location.hash.slice(1) || '/';
-    let route = resolveRoute(url);
-
-    route();
+    console.log(url);
+    let r = resolveRoute(url);
+console.log(r);
+r()
 };
-
-template('home', () => {
-    home();
-});
-
-template('about', function () {
-    about();
-});
 
 window.addEventListener('load', router);
 window.addEventListener('hashchange', router);
