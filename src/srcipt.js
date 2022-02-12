@@ -20,3 +20,11 @@ export const route = (path, template)=>{
         return;
     };
 }
+
+export function resolveRoute(route) {
+    try {
+        return routes[route];
+    } catch (e) {
+        throw new Error(`Route ${route} not found`);
+    };
+};
